@@ -1,0 +1,237 @@
+@font-face {
+  font-family: "C64Pro";
+  src: url("./fonts/C64Pro.woff2") format("woff2"),
+       url("./fonts/C64Pro.woff") format("woff"),
+       url("./fonts/C64Pro.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --Border: #7E6FD0;
+  --Bg: #3B2FA0;
+  --Fg: #BDB0F7;
+  --Dim: #8B7CE0;
+  --FontStack: "C64Pro", "VT323", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--Border);
+  color: var(--Fg);
+  font-family: var(--FontStack);
+  font-size: 22px;
+  line-height: 1.35;
+  letter-spacing: 0.5px;
+  padding: 18px;
+  text-shadow: 0 0 2px rgba(189, 176, 247, 0.45);
+}
+
+.Scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.16) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+}
+
+.Screen {
+  background: var(--Bg);
+  min-height: calc(100vh - 36px);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Hidden {
+  display: none;
+}
+
+.Boot {
+  justify-content: flex-start;
+}
+
+.BootText {
+  font-family: var(--FontStack);
+  font-size: 22px;
+  white-space: pre-wrap;
+  margin-bottom: 28px;
+}
+
+.BootHint {
+  color: var(--Dim);
+  animation: Flicker 1.6s steps(2) infinite;
+}
+
+.TopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 3px solid var(--Fg);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.Title {
+  font-size: 26px;
+}
+
+.C64Button {
+  font-family: var(--FontStack);
+  font-size: 20px;
+  letter-spacing: 1px;
+  background: var(--Bg);
+  color: var(--Fg);
+  border: 3px solid var(--Fg);
+  padding: 8px 14px;
+  cursor: pointer;
+  text-shadow: inherit;
+}
+
+.C64Button:hover,
+.C64Button:focus-visible {
+  background: var(--Fg);
+  color: var(--Bg);
+  outline: none;
+}
+
+.Layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+}
+
+.Panel {
+  border: 3px solid var(--Fg);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.PanelHead {
+  background: var(--Fg);
+  color: var(--Bg);
+  padding: 6px 12px;
+  text-shadow: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.EntryList {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.EntryItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.EntryItem:hover {
+  color: var(--Bg);
+  background: var(--Dim);
+}
+
+.EntryItem.IsSelected {
+  background: var(--Fg);
+  color: var(--Bg);
+  text-shadow: none;
+}
+
+.Empty {
+  padding: 14px 12px;
+  color: var(--Dim);
+  white-space: pre-wrap;
+}
+
+.Hint {
+  border-top: 3px solid var(--Fg);
+  padding: 8px 12px;
+  color: var(--Dim);
+  font-size: 18px;
+}
+
+.Reader {
+  font-family: var(--FontStack);
+  font-size: 22px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+}
+
+.Cursor {
+  display: inline-block;
+  width: 0.62em;
+  height: 1.05em;
+  background: var(--Fg);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: Blink 1s steps(2) infinite;
+}
+
+@keyframes Blink {
+  50% { opacity: 0; }
+}
+
+@keyframes Flicker {
+  50% { opacity: 0.25; }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--Bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--Dim);
+  border: 2px solid var(--Bg);
+}
+
+@media (max-width: 760px) {
+  body {
+    font-size: 20px;
+  }
+  .Layout {
+    grid-template-columns: 1fr;
+  }
+  .ListPanel {
+    max-height: 42vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Cursor,
+  .BootHint {
+    animation: none;
+  }
+}

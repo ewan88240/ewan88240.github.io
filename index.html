@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sub Rosa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="Scanlines"></div>
+
+  <div id="Boot" class="Screen Boot">
+    <pre class="BootText">
+    **** COMMODORE 64 BASIC V2 ****
+
+ 64K RAM SYSTEM  38911 BASIC BYTES FREE
+
+READY.
+LOAD "SUB ROSA",8,1
+
+SEARCHING FOR SUB ROSA
+LOADING
+READY.
+RUN<span class="Cursor"></span></pre>
+    <div class="BootHint">PRESS ANY KEY OR CLICK TO CONTINUE</div>
+  </div>
+
+  <div id="App" class="Screen Hidden">
+    <header class="TopBar">
+      <span class="Title">*** SUB ROSA ***</span>
+      <button id="OrderButton" class="C64Button" type="button">SORT: NEWEST</button>
+    </header>
+
+    <main class="Layout">
+      <section class="Panel ListPanel">
+        <div class="PanelHead">ENTRIES</div>
+        <ul id="EntryList" class="EntryList"></ul>
+        <div class="Hint">&uarr;/&darr; MOVE &middot; ENTER OPEN &middot; S SORT</div>
+      </section>
+
+      <section class="Panel ReadPanel">
+        <div class="PanelHead" id="ReaderTitle">READER</div>
+        <pre id="Reader" class="Reader">READY.<span class="Cursor"></span></pre>
+      </section>
+    </main>
+  </div>
+
+  <script src="./diary.js"></script>
+</body>
+</html>
